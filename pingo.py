@@ -1,11 +1,46 @@
 #!/usr/bin/env python
  
 """
+    pingo.py - a pingtime measure tool for high frequency pinging
+
+    pingo.py [src-addr] [dest-addr] [timeout-msec] [threshhold-msec] [pause-msec]
+
+INTRODUCTION
+    Pingo is a rewrite of a simple python based ping-tool.
+    Pingos purpose is to record network health between two peers by
+    by measuring ping-times in a continious stream of high frequency pings.
+    Results are printed to console / STDOUT.
+
+ARGUMENTS
+
+    src-addr 
+        Local host/ip-address to send the ping from
+
+    dest-addr
+        Destination host/ip-address to send the ping to
+
+    timeout-msec (default: 2000)
+        Timeout in milliseconds for waiting for ping-answer. 
+        Timed out ping-requests are accounted with this time in the output
+
+    threshhold-msec (default: 200)
+        Pings using more than this threshhold (in milliseconds) of time are registered / printed
+        Use lower value if the network being tested is more local i.e. "20" for LAN
+
+    pause-msec (default: 100)
+        Pause (in milliseconds) between separate ping attempts.
+
+
+LICENSE
+    Distributable under the terms of the GNU General Public License
+    version 2. Provided with no warranties of any sort.
+
+
+ORIGINAL CREDITS
+
     A pure python ping implementation using raw socket.
- 
- 
+  
     Note that ICMP messages can only be sent from processes running as root.
- 
  
     Derived from ping.c distributed in Linux's netkit. That code is
     copyright (c) 1989 by The Regents of the University of California.
@@ -268,12 +303,5 @@ if __name__ == '__main__':
     threshhold_msec = locale.atof(sys.argv[4])
     pause_msec      = int(sys.argv[5])
       
-    # verbose_ping("heise.de")
-    # verbose_ping("google.com")
-    # verbose_ping("a-test-url-taht-is-not-available.com")
-    # verbose_ping("192.168.1.1")
-    # verbose_ping("127.0.0.1",2,1)
-    # verbose_ping("cm.prod.b00001.bec.dk",2,400)
     ping_stream(src_addr,dest_addr,timeout,threshhold_msec,pause_msec)
     
-   
